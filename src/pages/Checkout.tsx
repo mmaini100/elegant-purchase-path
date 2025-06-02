@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useCart } from '../contexts/CartContext';
+import { useAppSelector } from '../hooks/useRedux';
 import { Minus, Plus, Trash2, CreditCard, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import CouponInput from '../components/CouponInput';
 
 const Checkout = () => {
   const { items, updateQuantity, removeFromCart, totalPrice, clearCart } = useCart();
+  const { appliedCoupon } = useAppSelector(state => state.coupon);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -19,6 +22,12 @@ const Checkout = () => {
     cvv: '',
     nameOnCard: ''
   });
+
+  // Calculate discount and final total
+  const discountAmount = appliedCoupon ? (totalPrice * appliedCoupon.discount) / 100 : 0;
+  const discountedSubtotal = totalPrice - discountAmount;
+  const gstAmount = discountedSubtotal * 0.18;
+  const finalTotal = discountedSubtotal + gstAmount;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData(prev => ({
@@ -101,6 +110,12 @@ const Checkout = () => {
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Coupon Section */}
+            <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+              <h2 className="text-xl font-semibold mb-4">Coupon Code</h2>
+              <CouponInput />
             </div>
 
             {/* Customer Information */}
@@ -294,18 +309,24 @@ const Checkout = () => {
                   <span>Subtotal</span>
                   <span>₹{totalPrice.toLocaleString('en-IN')}</span>
                 </div>
+                {appliedCoupon && (
+                  <div className="flex justify-between text-green-600">
+                    <span>Coupon Discount ({appliedCoupon.discount}%)</span>
+                    <span>-₹{discountAmount.toLocaleString('en-IN')}</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span>Shipping</span>
                   <span>Free</span>
                 </div>
                 <div className="flex justify-between">
                   <span>GST (18%)</span>
-                  <span>₹{(totalPrice * 0.18).toLocaleString('en-IN')}</span>
+                  <span>₹{gstAmount.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="border-t pt-3">
                   <div className="flex justify-between font-semibold text-lg">
                     <span>Total</span>
-                    <span>₹{(totalPrice * 1.18).toLocaleString('en-IN')}</span>
+                    <span>₹{finalTotal.toLocaleString('en-IN')}</span>
                   </div>
                 </div>
               </div>
