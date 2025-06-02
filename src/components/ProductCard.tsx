@@ -39,7 +39,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         
         <div className="flex items-center justify-between">
           <span className="text-lg font-bold text-gray-900">
-            ${product.price.toFixed(2)}
+            ₹{product.price.toLocaleString('en-IN')}
           </span>
           <button
             onClick={handleAddToCart}

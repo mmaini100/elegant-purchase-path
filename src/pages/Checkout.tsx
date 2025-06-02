@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { Minus, Plus, Trash2, CreditCard, Lock } from 'lucide-react';
@@ -76,7 +75,7 @@ const Checkout = () => {
                     <div className="flex-1">
                       <h3 className="font-medium text-gray-900">{item.name}</h3>
                       <p className="text-gray-500 text-sm">{item.category}</p>
-                      <p className="font-semibold text-gray-900">${item.price.toFixed(2)}</p>
+                      <p className="font-semibold text-gray-900">₹{item.price.toLocaleString('en-IN')}</p>
                     </div>
                     <div className="flex items-center space-x-2">
                       <button
@@ -181,7 +180,7 @@ const Checkout = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Postal Code
+                      PIN Code
                     </label>
                     <input
                       type="text"
@@ -194,7 +193,7 @@ const Checkout = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Country
+                      State
                     </label>
                     <select
                       name="country"
@@ -203,11 +202,14 @@ const Checkout = () => {
                       required
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                     >
-                      <option value="">Select Country</option>
-                      <option value="US">United States</option>
-                      <option value="CA">Canada</option>
-                      <option value="UK">United Kingdom</option>
-                      <option value="AU">Australia</option>
+                      <option value="">Select State</option>
+                      <option value="MH">Maharashtra</option>
+                      <option value="DL">Delhi</option>
+                      <option value="KA">Karnataka</option>
+                      <option value="TN">Tamil Nadu</option>
+                      <option value="WB">West Bengal</option>
+                      <option value="RJ">Rajasthan</option>
+                      <option value="UP">Uttar Pradesh</option>
                     </select>
                   </div>
                 </div>
@@ -290,20 +292,20 @@ const Checkout = () => {
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>${totalPrice.toFixed(2)}</span>
+                  <span>₹{totalPrice.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping</span>
                   <span>Free</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Tax</span>
-                  <span>${(totalPrice * 0.08).toFixed(2)}</span>
+                  <span>GST (18%)</span>
+                  <span>₹{(totalPrice * 0.18).toLocaleString('en-IN')}</span>
                 </div>
                 <div className="border-t pt-3">
                   <div className="flex justify-between font-semibold text-lg">
                     <span>Total</span>
-                    <span>${(totalPrice * 1.08).toFixed(2)}</span>
+                    <span>₹{(totalPrice * 1.18).toLocaleString('en-IN')}</span>
                   </div>
                 </div>
               </div>
