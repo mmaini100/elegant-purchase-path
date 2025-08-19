@@ -38,7 +38,7 @@ export const products: Product[] = [
     id: '5',
     name: 'Artisan Coffee Mug Set',
     price: 7499,
-    image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcf93a?w=500&h=500&fit=crop',
+    image: 'https://images.unsplash.com/photo-1665727494461-16f109b4e503?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8QXJ0aXNhbiUyMENvZmZlZSUyME11ZyUyMFNldHxlbnwwfHwwfHx8MA%3D%3D',
     description: 'Handcrafted ceramic mugs perfect for your morning coffee ritual.',
     category: 'Home & Kitchen'
   },

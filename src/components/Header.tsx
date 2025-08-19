@@ -3,10 +3,12 @@ import { ShoppingCart, Search, User, Menu, Heart } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useWishlist } from '../contexts/WishlistContext';
 import { Link } from 'react-router-dom';
+import { useSearch } from '../contexts/SearchContext'; // 👈 Add this import
 
 const Header = () => {
   const { totalItems } = useCart();
   const { items: wishlistItems } = useWishlist();
+ 
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -28,16 +30,18 @@ const Header = () => {
             <Link to="/categories" className="text-gray-700 hover:text-gray-900 transition-colors">
               Categories
             </Link>
-            <Link to="/about" className="text-gray-700 hover:text-gray-900 transition-colors">
-              About
-            </Link>
+            
           </nav>
 
           {/* Right side icons */}
           <div className="flex items-center space-x-4">
-            <button className="p-2 text-gray-700 hover:text-gray-900 transition-colors">
-              <Search size={20} />
-            </button>
+            
+             <Link to="/search" className="p-2 text-gray-700 hover:text-gray-900 transition-colors">
+  <Search size={20} />
+</Link>
+
+            
+
             <Link
               to="/profile"
               className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
